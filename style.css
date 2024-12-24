@@ -1,7 +1,7 @@
-/* Global Styles */
+/* General Styles */
 body {
     margin: 0;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Roboto', sans-serif;
     background: linear-gradient(to bottom right, #f5b461, #4ab0e5);
     color: #333;
     overflow-x: hidden;
@@ -16,18 +16,20 @@ header {
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     position: fixed;
-    width: 100%;
     top: 0;
+    left: 0;
+    width: 100%;
     z-index: 1000;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Logo */
 .logo {
-    font-size: 1.5em;
-    font-weight: 600;
+    font-size: 1.4em;
+    font-weight: 500;
     color: #fff;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 /* Navigation Links */
@@ -36,6 +38,7 @@ header {
     gap: 30px;
     list-style: none;
     margin: 0;
+    padding: 0;
     align-items: center;
 }
 
@@ -43,7 +46,7 @@ header {
     text-decoration: none;
     color: #fff;
     font-weight: 400;
-    font-size: 1em;
+    font-size: 0.95em;
     transition: color 0.3s ease;
 }
 
@@ -66,6 +69,7 @@ header {
     border-radius: 8px;
     overflow: hidden;
     padding: 5px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .dropdown:hover .dropdown-menu {
@@ -95,18 +99,18 @@ header {
     text-align: center;
     gap: 10px;
     color: #fff;
-    margin-top: 60px; /* Offset for fixed header */
+    margin-top: 80px; /* Offset for fixed header */
 }
 
 .hero h1 {
-    font-size: 3em;
+    font-size: 2.5em;
     font-weight: 700;
     margin: 0;
     animation: fadeInUp 1.5s ease-out;
 }
 
 .hero p {
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-top: 10px;
     animation: fadeInUp 2s ease-out;
 }
@@ -139,6 +143,14 @@ header {
     .dropdown-menu {
         right: auto;
         left: 0;
+    }
+
+    .hero h1 {
+        font-size: 2em;
+    }
+
+    .hero p {
+        font-size: 1em;
     }
 }
 
