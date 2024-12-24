@@ -1,1 +1,57 @@
+/* Global Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    padding: 10px 5%;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1em;
+}
+
+.nav-buttons a {
+    text-decoration: none;
+    margin-left: 10px;
+    font-size: 0.9em;
+}
+
+.nav-buttons .subscribe {
+    background-color: #ff007f;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+.hero {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 2.5em;
+    font-weight: bold;
+}
 
