@@ -10,7 +10,6 @@ body {
 /* Header Styles */
 header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 15px 5%;
     background: rgba(255, 255, 255, 0.2);
@@ -30,17 +29,17 @@ header {
     color: #fff;
     letter-spacing: 0.5px;
     text-transform: uppercase;
+    margin-right: 40px; /* Space between logo and nav links */
 }
 
 /* Navigation Links */
 .nav-links {
     display: flex;
-    gap: 30px; /* Slightly increased gap */
+    gap: 30px;
     list-style: none;
     margin: 0;
     padding: 0;
     align-items: center;
-    flex-wrap: nowrap; /* Prevent items from wrapping */
 }
 
 .nav-links li {
@@ -53,7 +52,7 @@ header {
     font-weight: 400;
     font-size: 0.95em;
     transition: color 0.3s ease;
-    white-space: nowrap; /* Prevents wrapping of text */
+    white-space: nowrap;
 }
 
 .nav-links li a:hover {
@@ -69,14 +68,14 @@ header {
     display: none;
     position: absolute;
     top: 100%;
-    right: 0;
+    left: 0;
     background: rgba(255, 255, 255, 0.95);
     list-style: none;
     border-radius: 8px;
     overflow: hidden;
     padding: 5px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    min-width: 160px; /* Ensures enough width for menu items */
+    min-width: 160px;
     z-index: 9999;
 }
 
@@ -138,7 +137,7 @@ header {
 /* Responsive Design */
 @media (max-width: 1024px) {
     .nav-links {
-        gap: 20px; /* Slightly smaller gap on smaller screens */
+        gap: 20px;
     }
 }
 
@@ -148,14 +147,16 @@ header {
         align-items: flex-start;
     }
 
+    .logo {
+        margin-bottom: 10px;
+    }
+
     .nav-links {
-        margin-top: 10px;
         flex-direction: column;
         gap: 15px;
     }
 
     .dropdown-menu {
-        right: auto;
         left: 0;
     }
 
