@@ -35,12 +35,12 @@ header {
 /* Navigation Links */
 .nav-links {
     display: flex;
-    gap: 25px; /* Adjusted spacing */
+    gap: 30px; /* Slightly increased gap */
     list-style: none;
     margin: 0;
     padding: 0;
     align-items: center;
-    flex-wrap: wrap; /* Prevents overflow */
+    flex-wrap: nowrap; /* Prevent items from wrapping */
 }
 
 .nav-links li {
@@ -53,7 +53,7 @@ header {
     font-weight: 400;
     font-size: 0.95em;
     transition: color 0.3s ease;
-    white-space: nowrap; /* Prevent text from wrapping */
+    white-space: nowrap; /* Prevents wrapping of text */
 }
 
 .nav-links li a:hover {
@@ -69,14 +69,14 @@ header {
     display: none;
     position: absolute;
     top: 100%;
-    left: 0;
-    background: rgba(255, 255, 255, 0.9);
+    right: 0;
+    background: rgba(255, 255, 255, 0.95);
     list-style: none;
     border-radius: 8px;
     overflow: hidden;
     padding: 5px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    min-width: 150px; /* Ensures dropdown width is sufficient */
+    min-width: 160px; /* Ensures enough width for menu items */
     z-index: 9999;
 }
 
@@ -138,7 +138,7 @@ header {
 /* Responsive Design */
 @media (max-width: 1024px) {
     .nav-links {
-        gap: 15px; /* Smaller spacing for smaller screens */
+        gap: 20px; /* Slightly smaller gap on smaller screens */
     }
 }
 
@@ -167,4 +167,3 @@ header {
         font-size: 1em;
     }
 }
-
