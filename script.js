@@ -12,6 +12,7 @@ const apiKey = 'hf_yJNnOtFwQhIjYeOkwksoah31cldWJOeIXuN'; // Replace with your ac
 const chatBox = document.getElementById('chat-box');
 const userInput = document.getElementById('user-input');
 
+// Function to send a message
 async function sendMessage() {
     const userMessage = userInput.value.trim();
     if (!userMessage) return;
@@ -55,3 +56,11 @@ async function sendMessage() {
         chatBox.scrollTop = chatBox.scrollHeight;
     }
 }
+
+// Enable Enter key to send messages
+userInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent default Enter key behavior (e.g., adding a newline)
+        sendMessage();
+    }
+});
