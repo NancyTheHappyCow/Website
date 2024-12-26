@@ -8,7 +8,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-const apiKey = 'hf_yJNnOtFwQhIjYeOkwksoah31cldWJOeIXuN'; // Replace with your actual API key
+const apiKey = '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'; // Replace with your actual API key
 const chatBox = document.getElementById('chat-box');
 const userInput = document.getElementById('user-input');
 
@@ -23,7 +23,7 @@ async function sendMessage() {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        const response = await fetch('https://api-inference.huggingface.co/models/meta-llama/Llama-2-7b-chat-hf', {
+        const response = await fetch('https://api-inference.huggingface.co/models/meta-llama/Llama-2-7b', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
