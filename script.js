@@ -19,29 +19,63 @@ async function sendMessage() {
     // Display user message
     chatBox.innerHTML += `<p><strong>You:</strong> ${userMessage}</p>`;
     userInput.value = '';
+    
+    // Auto-scroll to bottom
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        const response = await fetch('https://api-inference.huggingface.co/models/meta-llama/Llama-3-8b-chat-hf', {
+        // Show loading indicator
+        chatBox.innerHTML += `<p class="loading"><em>AI is thinking...</em></p>`;
+
+        const response = await fetch('https://api-inference.huggingface.co/models/meta-llama/llama-3-8b-chat-hf', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                inputs: userMessage
+                inputs: {
+                    text: userMessage,
+                    max_length: 1000,
+                    temperature: 0.7,
+                    top_p: 0.9,
+                    do_sample: true
+                }
             })
         });
 
+        // Remove loading indicator
+        chatBox.innerHTML = chatBox.innerHTML.replace('<p class="loading"><em>AI is thinking...</em></p>', '');
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
-        const botMessage = data.generated_text || "I'm sorry, I couldn't understand that.";
+        let botMessage = data.generated_text || "I apologize, but I'm having trouble understanding that.";
+        
+        // Clean up the response to remove any repeated user message
+        if (botMessage.includes(userMessage)) {
+            botMessage = botMessage.replace(userMessage, '').trim();
+        }
 
         // Display bot response
         chatBox.innerHTML += `<p><strong>AI:</strong> ${botMessage}</p>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
-
     } catch (error) {
         console.error('Error:', error);
-        chatBox.innerHTML += `<p><strong>AI:</strong> Oops! Something went wrong.</p>`;
+        chatBox.innerHTML = chatBox.innerHTML.replace(
+            '<p class="loading"><em>AI is thinking...</em></p>',
+            `<p><strong>AI:</strong> I apologize, but I'm experiencing technical difficulties. Please try again.</p>`
+        );
     }
+
+    // Auto-scroll to bottom
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
+
+// Add event listener for Enter key
+userInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
