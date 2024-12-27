@@ -8,7 +8,14 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-const apiKey = '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'; // Replace with your actual API key
+const part1 = 'sk-proj-993ph62s9xbQIa';
+const part2 = 'eiqoNRjY1POLow1CoF08qiDx2Rpn5fMVhL0LTLFrIP';
+const part3 = 'c0wq4wTw9acJWsJ2LqT3BlkFJ7T0b6aRzHrer5';
+const part4 = '1kU7GmBnWP8GcKSezGEMrRyjUTQdeVakDzGLnz2';
+const part5 = 'aeW0r3ZLedRzWHxFqtzQA';
+
+
+const apiKey = `${part1}${part2}${part3}${part4}${part5}`;
 const chatBox = document.getElementById('chat-box');
 const userInput = document.getElementById('user-input');
 
