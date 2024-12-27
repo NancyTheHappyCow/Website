@@ -8,7 +8,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-const apiKey = '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'; // Your API Key
+const apiKey = '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'; // Replace with your actual API key
 const chatBox = document.getElementById('chat-box');
 const userInput = document.getElementById('user-input');
 
@@ -22,39 +22,20 @@ async function sendMessage() {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        // Correct prompt structure for OpenAssistant
-        const prompt = `<|prompter|>${userMessage}<|endoftext|><|assistant|>`;
-
-        const response = await fetch('https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2', {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                inputs: prompt,
-                parameters: {
-                    max_new_tokens: 150,
-                    temperature: 0.7,
-                    top_p: 0.9,
-                    do_sample: true
-                }
+                model: 'gpt-4o',
+                messages: [{ role: 'user', content: userMessage }]
             })
         });
 
         const data = await response.json();
-        console.log('API Response:', data);
-
-        let botMessage = "I'm sorry, I couldn't understand that.";
-
-        // Extract the assistant's response
-        if (data.generated_text) {
-            botMessage = data.generated_text.split('<|assistant|>')[1]?.trim() || botMessage;
-        } else if (data[0]?.generated_text) {
-            botMessage = data[0].generated_text.split('<|assistant|>')[1]?.trim() || botMessage;
-        } else if (data.error) {
-            throw new Error(`API Error: ${data.error}`);
-        }
+        const botMessage = data.choices[0]?.message?.content || "I'm sorry, I couldn't understand that.";
 
         // Display bot response
         chatBox.innerHTML += `<p><strong>AI:</strong> ${botMessage}</p>`;
@@ -62,16 +43,7 @@ async function sendMessage() {
 
     } catch (error) {
         console.error('Error:', error);
-        chatBox.innerHTML += `<p><strong>AI:</strong> Oops! ${error.message}</p>`;
-        chatBox.scrollTop = chatBox.scrollHeight;
+        chatBox.innerHTML += `<p><strong>AI:</strong> Oops! Something went wrong.</p>`;
     }
 }
-
-// Enable Enter key to send messages
-userInput.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-        event.preventDefault();
-        sendMessage();
-    }
-});
 
