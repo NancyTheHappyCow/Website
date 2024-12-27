@@ -8,13 +8,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-const part1 = 'sk-proj-993ph62s9xbQIa';
-const part2 = 'eiqoNRjY1POLow1CoF08qiDx2Rpn5fMVhL0LTLFrIP';
-const part3 = 'c0wq4wTw9acJWsJ2LqT3BlkFJ7T0b6aRzHrer5';
-const part4 = '1kU7GmBnWP8GcKSezGEMrRyjUTQdeVakDzGLnz2';
-const part5 = 'aeW0r3ZLedRzWHxFqtzQA';
-
-const apiKey = `${part1}${part2}${part3}${part4}${part5}`;
+const apiKey = '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'; // Your API Key
 const chatBox = document.getElementById('chat-box');
 const userInput = document.getElementById('user-input');
 
@@ -28,33 +22,55 @@ async function sendMessage() {
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
-        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        // Structured prompt for Mistral-7B-Instruct
+        const prompt = `You are a helpful assistant.\nUser: ${userMessage}\nAssistant:`;
+
+        const response = await fetch('https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${apiKey}`
             },
             body: JSON.stringify({
-                model: 'gpt-4o',
-                messages: [{ role: 'user', content: userMessage }]
+                inputs: prompt,
+                parameters: {
+                    max_new_tokens: 150,
+                    temperature: 0.7,
+                    top_p: 0.9,
+                    do_sample: true
+                }
             })
         });
 
-        if (!response.ok) {
-            // Display API error response
-            const errorData = await response.json();
-            throw new Error(`${response.status}: ${errorData.error.message}`);
+        const data = await response.json();
+        console.log('API Response:', data);
+
+        let botMessage = "I'm sorry, I couldn't understand that.";
+
+        // Safely check if generated_text exists
+        if (data.generated_text) {
+            botMessage = data.generated_text.split('Assistant:')[1]?.trim() || botMessage;
+        } else if (Array.isArray(data) && data[0]?.generated_text) {
+            botMessage = data[0].generated_text.split('Assistant:')[1]?.trim() || botMessage;
+        } else if (data.error) {
+            throw new Error(`API Error: ${data.error}`);
         }
 
-        const data = await response.json();
-        const botMessage = data.choices?.[0]?.message?.content || "I'm sorry, I couldn't understand that.";
-
+        // Display bot response
         chatBox.innerHTML += `<p><strong>AI:</strong> ${botMessage}</p>`;
         chatBox.scrollTop = chatBox.scrollHeight;
 
     } catch (error) {
         console.error('Error:', error);
-        chatBox.innerHTML += `<p><strong>AI:</strong> Error: ${error.message}</p>`;
+        chatBox.innerHTML += `<p><strong>AI:</strong> Oops! ${error.message}</p>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
     }
 }
 
+// Enable Enter key to send messages
+userInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        sendMessage();
+    }
+});
