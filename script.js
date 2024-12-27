@@ -24,7 +24,7 @@ async function sendMessage() {
     try {
         let retries = 3; // Retry up to 3 times if the model is loading
         while (retries > 0) {
-            const response = await fetch('https://api-inference.huggingface.co/models/mistralai/Mistral-7B-v0.1', {
+            const response = await fetch('https://api-inference.huggingface.co/models/OpenAssistant/oasst-sft-6-llama-30b-xor', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
