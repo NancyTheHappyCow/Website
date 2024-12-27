@@ -25,7 +25,7 @@ async function sendMessage() {
         // Correct prompt structure for OpenAssistant
         const prompt = `<|prompter|>${userMessage}<|endoftext|><|assistant|>`;
 
-        const response = await fetch('https://api-inference.huggingface.co/models/OpenAssistant/oasst-sft-6-llama-30b-xor', {
+        const response = await fetch('https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
