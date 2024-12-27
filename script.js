@@ -50,7 +50,7 @@ async function sendMessage() {
 
     } catch (error) {
         console.error('Error:', error);
-        chatBox.innerHTML += `<p><strong>AI:</strong> Oops! Something went wrong.</p>`;
+        chatBox.innerHTML += `<p><strong>AI:</strong> Oopsssss! Something went wrong.</p>`;
     }
 }
 
