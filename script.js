@@ -14,7 +14,6 @@ const part3 = 'c0wq4wTw9acJWsJ2LqT3BlkFJ7T0b6aRzHrer5';
 const part4 = '1kU7GmBnWP8GcKSezGEMrRyjUTQdeVakDzGLnz2';
 const part5 = 'aeW0r3ZLedRzWHxFqtzQA';
 
-
 const apiKey = `${part1}${part2}${part3}${part4}${part5}`;
 const chatBox = document.getElementById('chat-box');
 const userInput = document.getElementById('user-input');
@@ -41,16 +40,21 @@ async function sendMessage() {
             })
         });
 
-        const data = await response.json();
-        const botMessage = data.choices[0]?.message?.content || "I'm sorry, I couldn't understand that.";
+        if (!response.ok) {
+            // Display API error response
+            const errorData = await response.json();
+            throw new Error(`${response.status}: ${errorData.error.message}`);
+        }
 
-        // Display bot response
+        const data = await response.json();
+        const botMessage = data.choices?.[0]?.message?.content || "I'm sorry, I couldn't understand that.";
+
         chatBox.innerHTML += `<p><strong>AI:</strong> ${botMessage}</p>`;
         chatBox.scrollTop = chatBox.scrollHeight;
 
     } catch (error) {
         console.error('Error:', error);
-        chatBox.innerHTML += `<p><strong>AI:</strong> Oopsssss! Something went wrong.</p>`;
+        chatBox.innerHTML += `<p><strong>AI:</strong> Error: ${error.message}</p>`;
     }
 }
 
