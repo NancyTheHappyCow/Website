@@ -25,7 +25,7 @@ async function sendMessage() {
         // Structured prompt for Mistral-7B-Instruct
         const prompt = `You are a helpful assistant.\nUser: ${userMessage}\nAssistant:`;
 
-        const response = await fetch('https://api-inference.huggingface.co/models/meta-llama/Llama-2-7b-chat-hf', {
+        const response = await fetch('https://api-inference.huggingface.co/models/mistralai/Mistral-Nemo-Instruct-2407', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
